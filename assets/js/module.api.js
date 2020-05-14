@@ -23,6 +23,22 @@ class SHAPI {
         });
     }
 
+    async getStreamStatus() {
+        let apiPath = this.apiBase + "streamStatus";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+
+            return response.data.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async getPromos() {
         let apiPath = this.apiBase + "promos";
         let supportedVersion = this.supportedVersion;
@@ -71,6 +87,22 @@ class SHAPI {
         });
     }
 
+    async getHotSongs(_offset) {
+        let apiPath = this.apiBase + "songs/hot/" + _offset;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async getPopularSongs(_offset) {
         let apiPath = this.apiBase + "songs/popular/" + _offset;
         let supportedVersion = this.supportedVersion;
@@ -105,6 +137,22 @@ class SHAPI {
 
     async getUserDetail(_userId) {
         let apiPath = this.apiBase + "user/" + _userId;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async searchAll() {
+        let apiPath = this.apiBase + "searchAll";
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)

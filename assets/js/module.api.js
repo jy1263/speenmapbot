@@ -1,10 +1,8 @@
 const axios = require('axios');
 
 class SSAPI {
-    constructor(isDev) {
-
+    constructor() {
         this.apiBase = "https://spinsha.re/api/";
-        this.supportedVersion = 1;
     }
 
     async ping() {
@@ -199,6 +197,54 @@ class SSAPI {
         });
     }
 
+    async getUserCharts(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/charts";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getUserReviews(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/reviews";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getUserSpinPlays(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/spinplays";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async searchAll() {
         let apiPath = this.apiBase + "searchAll";
         let supportedVersion = this.supportedVersion;
@@ -217,6 +263,22 @@ class SSAPI {
 
     async search(_searchQuery) {
         let apiPath = this.apiBase + "search/" + _searchQuery;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getTournamentMappool() {
+        let apiPath = this.apiBase + "tournament/mappool";
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)
